@@ -9,6 +9,8 @@ class SuperAbility(Enum):
     BLOCK_AND_REVERT = 4
     REVIVE = 5
     STEAL_HEALTH = 6
+    ANT = 7
+    STONE = 8
 
 
 
@@ -107,7 +109,7 @@ class Magic(Hero):
     def apply_super_power(self, boss, heroes):
         boost_amount = 5
         for hero in heroes:
-            if hero.health > 0 and hero != self:
+            if hero.health > 0 and hero != self and  hero.name != "Thor":
                 hero.damage += boost_amount
         print(f'Magic {self.name} boosted all heroes by {boost_amount}')
 
@@ -174,6 +176,26 @@ class Hacker(Hero):
             print(f'Hacker {self.name} stole {stolen_health} health from boss and gave it to {recipient.name}')
 
 
+# class Antman(Hero):
+#     def __init__(self, name, health, damage ):
+#         Hero.__init__(self,  name, health, damage, SuperAbility.ANT)
+#         if self.
+
+
+
+
+class Thor(Hero):
+    def __init__(self, name, health, damage):
+        Hero.__init__(self, name, health, damage, SuperAbility.STONE )
+
+        self.thor_counteer = choice(range(1,3))
+
+    def apply_super_power(self, boss, heroes):
+        if self.thor_counteer == 1:
+            boss.damage = 0
+            print(f'Thor {self.name} stone')
+        else:
+            boss.damage = 50
 
 
 
@@ -229,7 +251,8 @@ def start_game():
     assistant = Medic('Yunga', 300, 5, 5)
     witcher = Witcher('Wedmabek', 300, 0)
     hacker = Hacker('Mark Zukerberg', 220, 10)
-    heroes_list = [warrior_1, assistant, warrior_2, magic, berserk, doc, witcher, hacker]
+    thor = Thor('Thor', 200, 0 )
+    heroes_list = [warrior_1, assistant, warrior_2, magic, berserk, doc, witcher, hacker, thor]
 
     show_statistics(boss, heroes_list)
 
