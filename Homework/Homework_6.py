@@ -8,24 +8,30 @@ def selection_sort(arr):
         arr[i], arr[min_idx] = arr[min_idx], arr[i]
     return arr
 
-def binary_search(arr, target):
-    left, right = 0, len(arr) - 1
-    while left <= right:
-        mid = (left + right) // 2
-        if arr[mid] == target:
-            return f"Элемент {target} найден на индексе {mid}."
-        elif arr[mid] < target:
-            left = mid + 1
+def binary_search(val, arr):
+    n = len(arr)
+    result_ok = False
+    first = 0
+    last = n - 1
+    pos = -1
+
+    while first <= last:
+        middle = (first + last) // 2
+        if val == arr[middle]:
+            result_ok = True
+            pos = middle
+            break
+        elif val > arr[middle]:
+            first = middle + 1
         else:
-            right = mid - 1
-    return f"Элемент {target} не найден"
+            last = middle - 1
 
-unsorted_list = [7, 5, 4, 2]
-print("Исходный список:", unsorted_list)
+    if result_ok:
+        print(f"Элемент найден на позиции {pos}")
+    else:
+        print("Элемент не найден")
 
-sorted_list = selection_sort(unsorted_list)
-print("Отсортированный список:", sorted_list)
-
-search_element = 5
-result = binary_search(sorted_list, search_element)
-print(result)
+numbers = [4,5,3,1,2]
+selection_sort(numbers)
+print(numbers)
+binary_search(2,numbers)
